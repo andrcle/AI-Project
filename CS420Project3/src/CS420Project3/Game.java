@@ -12,22 +12,22 @@ public class Game {
             //System.out.print("\nHow long should the computer think about its moves (in secs)?: ");
             //int time = sc.nextInt();
             Board b = new Board();
-            while (true) {
-                while (true) {
-                    System.out.print("Choose your move: ");
-                    String move = sc.nextLine();
-                    String[] split = move.split("");
-                    if (b.getPlayerMove(charPosition(split[0]), Integer.parseInt(split[1]))) {
-                        break;
-                    } 
-                }
-                b.makeMove();
-            }
+            gameLoop(b);
+            
         }
         else {
+            //System.out.print("\nHow long should the computer think about its moves (in secs)?: ");
+            //int time = sc.nextInt();
             Board b = new Board();
             b.makeMove();
-            while (true) {
+            gameLoop(b);
+
+        }
+    }
+    
+    public static void gameLoop(Board b) {
+        Scanner sc = new Scanner(System.in);
+        while (true) {
                 while (true) {
                     System.out.print("Choose your move: ");
                     String move = sc.nextLine();
@@ -38,7 +38,6 @@ public class Game {
                 }
                 b.makeMove();
             }
-        }
     }
     
     //returns the position based on the character
@@ -51,5 +50,6 @@ public class Game {
         }
         return -1;
     }
+    
 }
 

@@ -4,7 +4,7 @@ package CS420Project3;
 public class Board {
     private int[][] gameBoard;
     private final int SIZE = 8;
-    private final int MAXDEPTH = 64;
+    private final int MAXDEPTH = 5;
     
     //initialize the starting board
     public Board() {
@@ -15,6 +15,15 @@ public class Board {
             }
         }
         printBoard();
+    }
+    
+    public Board(int[][] b) {
+        gameBoard = new int[SIZE][SIZE];
+        for (int i = 0; i < SIZE; i++) {
+            for (int j = 0; j < SIZE; j++) {
+                gameBoard[i][j] = b[i][j];
+            }
+        }
     }
     
     //places the player move on the board if legal
@@ -52,6 +61,7 @@ public class Board {
         return 0;
     }
     
+    //determine what move does the computer make
     public void makeMove() {
         int best = -20000;
         int depth = MAXDEPTH;
@@ -122,7 +132,7 @@ public class Board {
         return (best);
     }
 
-    //check if there is four in a line 
+    //check if there is four in a line
     public int check4winner() {
         return 0;
     }
