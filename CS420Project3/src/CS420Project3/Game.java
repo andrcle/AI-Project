@@ -25,10 +25,11 @@ public class Game {
         }
     }
     
+    //main game loop
     public static void gameLoop(Board b) {
         Scanner sc = new Scanner(System.in);
         while (true) {
-                while (true) {
+                while (true) { //error checking
                     System.out.print("Choose your move: ");
                     String move = sc.nextLine();
                     String[] split = move.split("");
@@ -36,7 +37,13 @@ public class Game {
                         break;
                     } 
                 }
+                if (b.gameOver()){
+                    break;
+                }
                 b.makeMove();
+                if (b.gameOver()) {
+                    break;
+                }
             }
     }
     

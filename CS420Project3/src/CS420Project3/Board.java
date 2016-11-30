@@ -3,8 +3,8 @@ package CS420Project3;
 //heavily based on the tic tac toe code she provided
 public class Board {
     private int[][] gameBoard;
-    private final int SIZE = 8;
-    private final int MAXDEPTH = 5;
+    private static final int SIZE = 8;
+    private static final int MAXDEPTH = 5;
     
     //initialize the starting board
     public Board() {
@@ -87,8 +87,8 @@ public class Board {
     int min(int depth) {
         int best = 20000;
         int score;
-        if (check4winner() != 0) {
-            return (check4winner());
+        if (check4Winner() != 0) {
+            return (check4Winner());
         }
         if (depth == 0) {
             return (evaluate());
@@ -111,8 +111,8 @@ public class Board {
     int max(int depth) {
         int best = -20000;
         int score;
-        if (check4winner() != 0) {
-            return (check4winner());
+        if (check4Winner() != 0) {
+            return (check4Winner());
         }
         if (depth == 0) {
             return (evaluate());
@@ -133,8 +133,31 @@ public class Board {
     }
 
     //check if there is four in a line
-    public int check4winner() {
-        return 0;
+    public int check4Winner() {
+        for (int i = 0; i < SIZE; i++) {
+            for (int j = 0; j < SIZE; j++) {
+                if (gameBoard[i][j] == 0)
+                    return 0; 
+            }
+        }
+        return 1; //draw 
+    }
+    
+    //determines the result of the game
+    public boolean gameOver() {
+        if (check4Winner() == 5000){
+            System.out.println("Computer wins!");
+            return true; 
+        }
+        if (check4Winner() == -5000){
+            System.out.println("You win!");
+            return true; 
+        }
+        if (check4Winner() == 1){
+            System.out.println("Draw!");
+            return true; 
+        }
+        return false;
     }
     
     //prints the current board status
