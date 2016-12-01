@@ -19,7 +19,7 @@ public class Game {
             //System.out.print("\nHow long should the computer think about its moves (in secs)?: ");
             //int time = sc.nextInt();
             Board b = new Board();
-            b.makeMove();
+            //b.makeMove();
             gameLoop(b);
 
         }
@@ -33,17 +33,14 @@ public class Game {
                     System.out.print("Choose your move: ");
                     String move = sc.nextLine();
                     String[] split = move.split("");
-                    if (b.getPlayerMove(charPosition(split[0]), Integer.parseInt(split[1]))) {
+                    int x = charPosition(split[0]);
+                    int y = Integer.parseInt(split[1]);
+                    if (b.getPlayerMove(x,y)) {
+                        b.gameOver(x, y - 1, 2);
                         break;
                     } 
                 }
-                if (b.gameOver()){
-                    break;
-                }
-                b.makeMove();
-                if (b.gameOver()) {
-                    break;
-                }
+                //b.makeMove();
             }
     }
     

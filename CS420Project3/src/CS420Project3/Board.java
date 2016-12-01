@@ -28,18 +28,17 @@ public class Board {
     
     //places the player move on the board if legal
     public boolean getPlayerMove(int i, int j) {
-        if (checkLegalMove(i, j - 1) == 0) {
-            gameBoard[i][j - 1] = 2;
-            printBoard();
-            return true;
-        }
-        else if (checkLegalMove(i, j - 1) == 1) {
-            System.out.println("Move already taken!");
-            return false;
-        }
-        else {
-            System.out.println("Invalid move!");
-            return false;
+        switch (checkLegalMove(i, j - 1)) {
+            case 0:
+                gameBoard[i][j - 1] = 2;
+                printBoard();
+                return true;
+            case 1:
+                System.out.println("Move already taken!");
+                return false;
+            default:
+                System.out.println("Invalid move!");
+                return false;
         }
     }
     
@@ -62,7 +61,7 @@ public class Board {
     }
     
     //determine what move does the computer make
-    public void makeMove() {
+    /*public void makeMove() {
         int best = -20000;
         int depth = MAXDEPTH;
         int score, mi = 0, mj = 0;
@@ -130,10 +129,154 @@ public class Board {
             }
         }
         return (best);
-    }
+    }*/
 
     //check if there is four in a line
-    public int check4Winner() {
+    public int check4Winner(int row, int col, int color) {
+        if (color == 1) { //computer
+            if (row == 0 && col == 0) {
+                if (checkRight(++row, col, color) >= 4) {
+                    return 5000; 
+                }
+                if (checkUp(row, ++col, color) >= 4) {
+                    return 5000; 
+                }
+            }
+            if (row == 0 && col == SIZE - 1) {
+                if (checkRight(++row, col, color) >= 4) {
+                    return 5000;
+                }
+                if (checkDown(row, --col, color) >= 4) {
+                    return 5000; 
+                }
+            }
+            if (row == SIZE - 1 && col == SIZE - 1) {
+                if (checkLeft(--row, col, color) >= 4) {
+                    return 5000;
+                }
+                if (checkDown(row, --col, color) >= 4) {
+                    return 5000; 
+                }
+            }
+            if (row == SIZE - 1 && col == 0) {
+                if (checkLeft(--row, col, color) >= 4) {
+                    return 5000;
+                }
+                if (checkUp(row, ++col, color) >= 4) {
+                    return 5000;
+                }
+            }
+            if (row == 0) {
+                if (checkRight(++row, col, color) >= 4) {
+                    return 5000; 
+                }
+                if (checkUp(row, ++col, color) + checkDown(row, --col, color) >= 4) {
+                    return 5000; 
+                }
+            }
+            if (col == SIZE - 1) {
+                if (checkLeft(--row, col, color) + checkRight(++row, col, color) >= 4) {
+                    return 5000; 
+                }
+                if (checkDown(row, --col, color) >= 4) {
+                    return 5000; 
+                }
+            }
+            if (row == SIZE - 1) {
+                if (checkLeft(--row, col, color) >= 4) {
+                    return 5000; 
+                }
+                if (checkUp(row, ++col, color) + checkDown(row, --col, color) >= 4) {
+                    return 5000;
+                }
+            } 
+            if (col == 0) {
+                if (checkLeft(--row, col, color) + checkRight(++row, col, color) >= 4) {
+                    return 5000; 
+                }
+                if (checkUp(row, ++col, color) >= 4) {
+                    return 5000; 
+                }
+            }
+            if (checkLeft(--row, col, color) + checkRight(++row, col, color) >= 4) {
+                return 5000; 
+            }
+            if (checkUp(row, ++col, color) + checkDown(row, --col, color) >= 4) {
+                return 5000; 
+            }
+        }
+        if (color == 2) { //player
+            if (row == 0 && col == 0) {
+                if (checkRight(++row, col, color) >= 4) {
+                    return -5000; 
+                }
+                if (checkUp(row, ++col, color) >= 4) {
+                    return -5000; 
+                }
+            }
+            if (row == 0 && col == SIZE - 1) {
+                if (checkRight(++row, col, color) >= 4) {
+                    return -5000;
+                }
+                if (checkDown(row, --col, color) >= 4) {
+                    return -5000; 
+                }
+            }
+            if (row == SIZE - 1 && col == SIZE - 1) {
+                if (checkLeft(--row, col, color) >= 4) {
+                    return -5000;
+                }
+                if (checkDown(row, --col, color) >= 4) {
+                    return -5000; 
+                }
+            }
+            if (row == SIZE - 1 && col == 0) {
+                if (checkLeft(--row, col, color) >= 4) {
+                    return -5000;
+                }
+                if (checkUp(row, ++col, color) >= 4) {
+                    return -5000;
+                }
+            }
+            if (row == 0) {
+                if (checkRight(++row, col, color) >= 4) {
+                    return -5000; 
+                }
+                if (checkUp(row, ++col, color) + checkDown(row, --col, color) >= 4) {
+                    return -5000; 
+                }
+            }
+            if (col == SIZE - 1) {
+                if (checkLeft(--row, col, color) + checkRight(++row, col, color) >= 4) {
+                    return -5000; 
+                }
+                if (checkDown(row, --col, color) >= 4) {
+                    return -5000; 
+                }
+            }
+            if (row == SIZE - 1) {
+                if (checkLeft(--row, col, color) >= 4) {
+                    return -5000; 
+                }
+                if (checkUp(row, ++col, color) + checkDown(row, --col, color) >= 4) {
+                    return -5000;
+                }
+            } 
+            if (col == 0) {
+                if (checkLeft(--row, col, color) + checkRight(++row, col, color) >= 4) {
+                    return -5000; 
+                }
+                if (checkUp(row, ++col, color) >= 4) {
+                    return -5000; 
+                }
+            }
+            if (checkLeft(--row, col, color) + checkRight(++row, col, color) >= 4) {
+                return -5000; 
+            }
+            if (checkUp(row, ++col, color) + checkDown(row, --col, color) >= 4) {
+                return -5000; 
+            }
+        }
         for (int i = 0; i < SIZE; i++) {
             for (int j = 0; j < SIZE; j++) {
                 if (gameBoard[i][j] == 0)
@@ -143,21 +286,52 @@ public class Board {
         return 1; //draw 
     }
     
+    public int checkUp(int x, int y, int color) {
+        if (color == gameBoard[x][y] && y == SIZE - 1)
+            return 1;
+        if (color == gameBoard[x][y])
+            return 1 + checkUp(x, ++y, color);
+        return 0;
+    }
+    
+    public int checkDown(int x, int y, int color) {
+        if (color == gameBoard[x][y] && y == 0)
+            return 1;
+        if (color == gameBoard[x][y])
+            return 1 + checkDown(x, --y, color);
+        return 0;
+    }
+    
+    public int checkLeft(int x, int y, int color) {
+        if (color == gameBoard[x][y] && x == 0)
+            return 1;
+        if (color == gameBoard[x][y])
+            return 1 + checkLeft(--x, y, color);
+        return 0;
+    }
+    
+    public int checkRight(int x, int y, int color) {
+        if (color == gameBoard[x][y] && x == SIZE - 1)
+            return 1;
+        if (color == gameBoard[x][y])
+            return 1 + checkRight(++x, y, color);
+        return 0;
+    }
+    
     //determines the result of the game
-    public boolean gameOver() {
-        if (check4Winner() == 5000){
-            System.out.println("Computer wins!");
-            return true; 
+    public void gameOver(int i, int j, int color) {
+        if (check4Winner(i,j, color) == 5000){
+            System.out.println("Computer wins!"); 
+            System.exit(0);
         }
-        if (check4Winner() == -5000){
+        if (check4Winner(i,j, color) == -5000){
             System.out.println("You win!");
-            return true; 
+            System.exit(0);
         }
-        if (check4Winner() == 1){
+        if (check4Winner(i,j, color) == 1){
             System.out.println("Draw!");
-            return true; 
+            System.exit(0);
         }
-        return false;
     }
     
     //prints the current board status
