@@ -9,17 +9,17 @@ public class Game {
         System.out.print("Would you like to go first? (y/n): ");
         String response = sc.nextLine();
         if (response.toLowerCase().equals("y")) {
-            //System.out.print("\nHow long should the computer think about its moves (in secs)?: ");
-            //int time = sc.nextInt();
-            Board b = new Board();
+            System.out.print("\nHow long should the computer think about its moves (in secs)?: ");
+            long time = sc.nextInt();
+            Board b = new Board(time);
             gameLoop(b);
             
         }
         else {
-            //System.out.print("\nHow long should the computer think about its moves (in secs)?: ");
-            //int time = sc.nextInt();
-            Board b = new Board();
-            //b.makeMove();
+            System.out.print("\nHow long should the computer think about its moves (in secs)?: ");
+            int time = sc.nextInt();
+            Board b = new Board(time);
+            b.makeMove();
             gameLoop(b);
 
         }
@@ -40,7 +40,8 @@ public class Game {
                         break;
                     } 
                 }
-                //b.makeMove();
+                b.makeMove();
+                
             }
     }
     
